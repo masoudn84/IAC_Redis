@@ -1,0 +1,21 @@
+---
+# - name: add redis zone
+#   firewalld:
+#     zone: redis
+#     state: present
+#     permanent: yes
+#   tags: add_zone
+- name: add zone redis to firewalld
+  firewalld:
+    permanent: yes
+    port: "{{ item }}"
+    state: enabled
+  loop: 
+      - 6379/tcp
+      - 26379/tcp
+  tags: add_zone    
+- name: reload service firewalld
+  systemd:
+    name: firewalld
+    state: restarted 
+  tags: add_zone

@@ -1,0 +1,29 @@
+---
+- hosts: redis
+  gather_facts: yes
+  roles:
+    - epel
+
+- hosts: master
+#  gather_facts: True
+
+  vars:
+    - masterip: "{{masterip}}"
+    - redisMaster: 'MasterRedis'
+
+  roles: 
+    - master
+
+- hosts: sentinels
+#  gather_facts: True
+  vars:
+    - masterip: "{{masterip}}"
+    - redisMaster: 'MasterRedis'
+    - masterport: 6379
+  roles: 
+    - sentinel
+
+- hosts: redis
+  roles: 
+    - firewall
+    - service

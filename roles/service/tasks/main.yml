@@ -1,0 +1,23 @@
+
+---
+#- name: daemon reload
+#  ansible.builtin.systemd:
+#    daemon_reload: yes
+
+
+
+- name: restart redis
+  ansible.builtin.systemd:
+    state: restarted
+    name: redis
+    
+- name: restart and enabled redis-sentinel
+  ansible.builtin.systemd:
+    state: restarted
+    name: redis-sentinel
+    
+
+
+
+
+

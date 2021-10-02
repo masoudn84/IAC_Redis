@@ -1,0 +1,19 @@
+---
+- hosts: test
+  gather_facts: False
+  vars:
+       
+     - master_ip: '192.168.106.90'
+     
+     - master_port: '6379'
+     - protected_mode: 'no'
+     - supervised: 'systemd'
+     - slave_read_only: 'no'
+     - password:
+     - master_port: '6379'
+     - slave_ip: '192.168.106.92'
+     - supervised: 'no'
+     - parallel_syncs: '1'
+     - downtime: '5000'
+  roles:
+    - master

@@ -1,0 +1,29 @@
+---
+# vars file for my-redis
+#redis_master
+master_ip: "{{ groups['master'][0] }}"
+master_port: 6379
+protected-mode: no
+supervised: systemd
+slave-read-only: no
+#password:
+
+#redis-slave
+
+#min-replicas-to-write 2:
+#min-replicas-max-lag 10:
+##slave_ip: in sentinel/main.yml  
+slave_supervised: systemd
+
+# masterauth <master-password>
+##master_sentinel
+sentinel_port: 26379
+master_name: MasterOfPuppets
+master_local_ip: 127.0.0.1
+quorum: 2
+
+
+#sentinel auth-pass mymaster Securep@55Here
+downtime:
+failover:
+parallel-syncs:

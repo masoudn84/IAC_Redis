@@ -1,0 +1,23 @@
+---
+# - name: ip
+#   set_fact:
+#       ip={{ansible_ssh_host}}
+- name:  copy and  backup redis-config Master server
+##remember to set variable inline to correct config per ip
+  template: 
+    src: redis-master.conf.j2
+    dest: /etc/redis.conf
+    owner: redis
+    mode: '640'
+    force: yes  
+  tags: temp
+  
+- name:  copy and  backup redis_sentinel-config Master server
+##remember to set variable inline to correct config per ip
+  template: 
+    src: redis-sentinel-master.conf.j2
+    dest: /etc/redis-sentinel.conf
+    owner: redis
+    mode: '640'  
+    force: yes
+  tags: temp   

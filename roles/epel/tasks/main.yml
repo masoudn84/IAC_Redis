@@ -1,0 +1,28 @@
+---
+- name: install redis dependency(epel-release yum-utils) && enable remi
+  yum:
+    name:
+        - epel-release
+        - yum-utils
+        - https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    state: latest
+    # enablerepo: "remi"
+  tags: repo
+  become: True
+  when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '7'
+- name: install redis
+  yum:
+    name:
+        - redis
+    state: latest
+  become: True
+- name: start redis
+  ansible.builtin.systemd:
+    state: started
+    name: redis
+    enabled: yes
+- name: start and enabled redis-sentinel
+  ansible.builtin.systemd:
+    state: started
+    name: redis-sentinel
+    enabled: yes
